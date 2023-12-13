@@ -1,8 +1,9 @@
-from Crypto.Hash import keccak
 
+import hashlib
+import requests
 
-keccak_hash = keccak.new(digest_bits=256)
-
-keccak_hash.update(b'matin')
-
-print (keccak_hash.hexdigest())
+page = requests.get('https://labs.nobitex.ir/')
+page_digi = page.text.encode('utf-8')
+sipi = hashlib.sha256(page_digi).hexdigest()
+bipi = hashlib.blake2b(page.text.encode('utf-8'), digest_size=64).hexdigest()
+print(sipi,'\nand blake2B:\n',bipi)
